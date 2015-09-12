@@ -30,13 +30,13 @@
 		fixed4 _Color;
 
 		void vert(inout appdata_full v) {
-			v.normal = mul(_World2Object, float3(0,1,0));
+			v.normal = mul(_World2Object, float4(0,1,0, 0));
 		}
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color * IN.color;
-			o.Albedo = c.rgb;
+			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+			o.Albedo = c.rgb * IN.color.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
